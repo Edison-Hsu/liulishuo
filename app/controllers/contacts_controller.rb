@@ -15,6 +15,7 @@ class ContactsController < ApplicationController
   # GET /contacts/new
   def new
     @contact = Contact.new
+    @users = User.all
   end
 
   # GET /contacts/1/edit
@@ -26,14 +27,13 @@ class ContactsController < ApplicationController
   def create
     @contact = current_user.contacts.new(contact_params)
     user = User.find_by(id: contact_params[:contacter])
+    isSelf = @contact.contacter == current_user.id
 
     respond_to do |format|
-      if user && @contact.save
-        p "12312312"
+      if !isSelf && user && @contact.save
         format.html { redirect_to contacts_url, notice: 'Contact was successfully created.' }
         format.json { render :show, status: :created, location: @contact }
       else
-        p "heeeee"
         format.html { redirect_to :new_contact, notice: 'Contact was not existed.' }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
