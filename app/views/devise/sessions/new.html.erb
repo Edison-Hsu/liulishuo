@@ -1,26 +1,55 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end -%>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'plugins/iCheck/square/blue.css' %>
 <% end %>
+<% content_for :body do %>
+  <body class="hold-transition login-page">
+<% end %>
+<div class="login-box">
+  <div class="login-logo">
+    <a href="/">流利说<b>Message</b></a>
+  </div><!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg">欢迎使用Message后台</p>
 
-<%= render "devise/shared/links" %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+      <div class="form-group has-feedback">
+        <%= f.email_field :email, autofocus: true, placeholder: "Email", class:"form-control" %>
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <%= f.password_field :password, autocomplete: "off", class:"form-control", placeholder:"Password" %>
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-8">
+          <div class="checkbox icheck">
+            <label>
+              <%= f.check_box :remember_me %> Remember Me
+            </label>
+          </div>
+        </div><!-- /.col -->
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+        </div><!-- /.col -->
+      </div>
+    <% end %>
+    
+    <a href="sign_up" class="text-center">Register a new account</a>
+  </div><!-- /.login-box-body -->
+</div><!-- /.login-box -->
+
+<!-- jQuery 2.1.4 -->
+<%= javascript_include_tag 'jQuery/jQuery-2.1.4.min.js' %>
+<!-- iCheck -->
+<%= javascript_include_tag 'iCheck/icheck.min.js' %>
+<script>
+$(function () {
+  $('input').iCheck({
+    checkboxClass: 'icheckbox_square-blue',
+    radioClass: 'iradio_square-blue',
+    increaseArea: '20%' // optional
+  });
+});
+</script>
+

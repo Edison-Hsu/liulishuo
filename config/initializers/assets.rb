@@ -9,3 +9,5 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
+Rails.application.config.assets.precompile += %w( plugins/iCheck/square/blue.css )
+Rails.application.config.assets.precompile += %w( jQuery/jQuery-2.1.4.min.js iCheck/icheck.min.js )
