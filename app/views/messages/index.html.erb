@@ -10,9 +10,9 @@
           <h3 class="box-title">Message Chat</h3>
         </div>
         <!-- /.box-header -->
-        <div class="box-body">
+        <div class="box-body" style="min-height: 500px">
           <!-- Conversations are loaded here -->
-          <div class="direct-chat-messages">
+          <div id="chat-messages" class="direct-chat-messages" style="min-height: 500px">
             <% @messages.each do |m| %>
               <% if m.sender.id == current_user.id %>
                 <div class="direct-chat-msg right">
