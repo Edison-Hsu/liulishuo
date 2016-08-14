@@ -6,6 +6,7 @@ class MessagesController < ApplicationController
   def index
     @contact = Contact.find_by(id: params[:contact_id])
     @messages = current_user.messages(@contact.contacter).order("created_at")
+    current_user.received_messages.update_all(status: 'readed')
   end
 
   # GET /messages/1

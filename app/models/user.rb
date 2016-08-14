@@ -13,4 +13,8 @@ class User < ApplicationRecord
     Message.where("sender_id = ? AND receiver_id = ? OR sender_id = ? AND receiver_id = ?", self.id, contact_id, contact_id, self.id)
   end
 
+  def unread_messages
+    received_messages.where(status: "unread").count
+  end
+
 end
