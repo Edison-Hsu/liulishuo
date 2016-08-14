@@ -25,13 +25,16 @@ class ContactsController < ApplicationController
   # POST /contacts.json
   def create
     @contact = current_user.contacts.new(contact_params)
+    user = User.find_by(id: contact_params[:contacter])
 
     respond_to do |format|
-      if @contact.save
-        format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
+      if user && @contact.save
+        p "12312312"
+        format.html { redirect_to contacts_url, notice: 'Contact was successfully created.' }
         format.json { render :show, status: :created, location: @contact }
       else
-        format.html { render :new }
+        p "heeeee"
+        format.html { redirect_to :new_contact, notice: 'Contact was not existed.' }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end
@@ -62,13 +65,13 @@ class ContactsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_contact
-      @contact = Contact.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_contact
+    @contact = Contact.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def contact_params
-      params.require(:contact).permit(:contacter)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def contact_params
+    params.require(:contact).permit(:contacter)
+  end
 end

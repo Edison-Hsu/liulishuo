@@ -1,25 +1,69 @@
-<p id="notice"><%= notice %></p>
+<section class="content-header">
+  <h1>Messages<small>list all messages</small></h1>
+</section>
 
-<h1>Messages</h1>
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box box-warning direct-chat direct-chat-warning">
+        <div class="box-header with-border">
+          <h3 class="box-title">Message Chat</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <!-- Conversations are loaded here -->
+          <div class="direct-chat-messages">
+            <% @messages.each do |m| %>
+              <% if m.sender.id == current_user.id %>
+                <div class="direct-chat-msg right">
+                  <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-name pull-left"><%= current_user.email %></span>
+                    <span class="direct-chat-timestamp pull-right"><%= m.created_at %></span>
+                  </div>
+                  <!-- /.direct-chat-info -->
+                  <img class="direct-chat-img" src="/user1-128x128.jpg" alt="message user image"><!-- /.direct-chat-img -->
+                  <div class="direct-chat-text">
+                    <%= m.content %>
+                          <%= link_to '删除', contact_message_path(params[:contact_id], m.id), method: :delete, data: { confirm: 'Are you sure?' }%> 
+                    
+                  </div>
+                  <!-- /.direct-chat-text -->
+                </div>
+              <%else%>
+                <!-- Message. Default to the left -->
+                <div class="direct-chat-msg">
+                  <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-name pull-left"><%= m.sender.email %></span>
+                    <span class="direct-chat-timestamp pull-right"><%= m.created_at %></span>
+                  </div>
+                  <!-- /.direct-chat-info -->
+                  <img class="direct-chat-img" src="/user3-128x128.jpg" alt="message user image"><!-- /.direct-chat-img -->
+                  <div class="direct-chat-text">
+                    <%= m.content %>
+                  </div>
+                  <!-- /.direct-chat-text -->
+                </div>
+                <!-- /.direct-chat-msg -->
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @messages.each do |message| %>
-      <tr>
-        <td><%= link_to 'Show', message %></td>
-        <td><%= link_to 'Edit', edit_message_path(message) %></td>
-        <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Message', new_message_path %>
+              <% end%>
+            <% end %>
+          </div>
+          <!-- /.direct-chat-pane -->
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+          <form action=<%= contact_messages_path %> method="post">
+            <div class="input-group">
+              <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %> 
+              <input type="text" name="content" placeholder="Type Message ..." class="form-control">
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-warning btn-flat">Send</button>
+              </span>
+            </div>
+          </form>
+        </div>
+        <!-- /.box-footer-->
+      </div>
+    </div>
+  </div>
+</div>

@@ -12,23 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20160814065709) do
 
-  create_table "admins", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.index ["email"], name: "index_admins_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
-  end
-
   create_table "contacts", force: :cascade do |t|
     t.integer  "owner",      null: false
     t.integer  "contacter",  null: false
@@ -39,14 +22,14 @@ ActiveRecord::Schema.define(version: 20160814065709) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.integer  "sender",                  null: false
-    t.integer  "receiver",                null: false
-    t.string   "content",    limit: 1024
+    t.integer  "sender_id",                null: false
+    t.integer  "receiver_id",              null: false
+    t.string   "content",     limit: 1024
     t.datetime "deleted_at"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.index ["deleted_at", "receiver", "sender", "created_at"], name: "index2"
-    t.index ["deleted_at", "sender", "receiver", "created_at"], name: "index1"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["deleted_at", "receiver_id", "sender_id", "created_at"], name: "index2"
+    t.index ["deleted_at", "sender_id", "receiver_id", "created_at"], name: "index1"
   end
 
   create_table "users", force: :cascade do |t|
