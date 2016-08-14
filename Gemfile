@@ -33,6 +33,11 @@ gem 'jbuilder', '~> 2.5'
 # Flexible authentication solution for Rails with Warden
 gem 'devise'
 
+# soft deleted
+gem "paranoia", github: "rubysherpas/paranoia", branch: "rails5"
+
+gem 'simple_form'
+
 group :development, :test do
   gem 'pry-rails'
   gem 'awesome_print'
