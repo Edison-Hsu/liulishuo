@@ -1,24 +1,32 @@
-# README
+## 功能点
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* 用户可以注册、登录。需要 id（可以自己决定 emai 或者 username）和 password
+* 用户登录后，进入联系人列表页面
+- 可以看到自己所有的联系人
+- 每个联系人需要显示对方 id 以及未读私信数量提醒
+- 用户可以通过 id 添加新联系人（可以不需要对方同意）
+- 用户可以删除某个联系人，但保留与对方用户的消息等数据。当再次添加新联系人时，消息等数据都还在
+* 点击一个联系人会进入聊天界面，同时未读消息置为 0
+- 可以看到和某个用户的历史消息
+- 能够在这里收发私信（不需要实时，可以刷一下页面才看到新消息）
+- 用户可以删除自己发的消息
 
-Things you may want to cover:
+加分项：
 
-* Ruby version
+* 联系人列表页面未读消息数实时更新，聊天界面新消息实时接收
+* 部署，可在线演示
 
-* System dependencies
+## 设计思路
 
-* Configuration
+- 看到题目后，认为用 rails 前后端结合的方式会比较方便，所以框架上选择 rails
+- 用户注册、登录使用了devise，只需要自己完成界面即可
+- 数据库设计中，一共三个表，Users, Contacts, Messages
+- Contacts 表是维护用户联系的人表
+- Messages 表是记录消息记录的表
+- 之间的关系分别是 User has_many Contact, User has_many Message
+- 未读是通过 Message 表中的 status 来记录的，进入私信界面边将受到的私信标为已读。
+- 实时更新是通过客户端轮训拉完成的
 
-* Database creation
+## 演示地址
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[http://demo.edison-hsu.com](http://demo.edison-hsu.com)
